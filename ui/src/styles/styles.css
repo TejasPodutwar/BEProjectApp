@@ -1,0 +1,66 @@
+.App-header{
+    margin-top: 3rem;
+    font-size: 30px;
+    padding: 16px;
+    font-family: 'Roboto', sans-serif;
+    color: #19A7CE;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cus-navbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-btn{
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.active-tab{
+    background-color: #121212;
+    border: 1px solid #764abc;
+}
+
+.purple-border{
+    border: 5px solid #764abc;
+}
+
+.textToVideo{
+    margin-top: 3rem;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.videoPlayer{
+    margin-top: 2rem;
+}
+
+.inputElem{
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+    width: 400px;
+}
+
+.getVideoForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.get-btn{
+    padding: 8px 16px;
+    margin-left: 8px;
+    background-color: #764abc;
+    cursor: pointer;
+}

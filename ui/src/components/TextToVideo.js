@@ -12,11 +12,16 @@ const TextToVideo = () => {
         const res = await axios.get(url, {
           responseType: 'arraybuffer',
         });
+
         const vurl = window.URL.createObjectURL(new Blob([res.data],{
           type: "video/mp4"
         }));
         setVdoSrc(vurl);
       } catch (err) {
+        if(err.response.status===400){
+          alert('Invalid Word');
+          return;
+        }
         alert("Error occurred fetching video");
         console.log(err);
       }

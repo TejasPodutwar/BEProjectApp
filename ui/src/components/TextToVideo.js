@@ -8,6 +8,10 @@ const TextToVideo = () => {
   const getVdo = (word)=>{
     const sendRequest = async () =>{
       try {
+        if(word===""){
+          alert("Enter some word");
+          return;
+        }
         const url = `http://localhost:8000/get-video/${word}`;
         const res = await axios.get(url, {
           responseType: 'arraybuffer',
@@ -55,6 +59,8 @@ const TextToVideo = () => {
                     controls
                     autoPlay
                     src={vdoSrc}
+                    width="550"
+                    height="400"
                 >
                 </video>
             </div>

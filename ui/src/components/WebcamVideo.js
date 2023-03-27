@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Container,Row } from "react-bootstrap";
 import Webcam from "react-webcam";
 
@@ -9,6 +9,7 @@ export default function WebcamVideo() {
   
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const [predWord, setPredWord] = useState("");
 
 
   const videoConstraints = {
@@ -49,13 +50,21 @@ export default function WebcamVideo() {
   }, [mediaRecorderRef, setCapturing]);
 
   const handleReset = ()=>{
-    if(recordedChunks.length>0)
+    if(recordedChunks.length>0){
       setRecordedChunks([]);
+      setPredWord("");
+      alert("Video Reset succcessful");
+    }
     else 
-      alert("No video recorded!!")
+      alert("No video recorded!")
   }
 
   const handlePredict = ()=>{
+
+    if(recordedChunks.length===0){
+      alert('No video recorded to predict');
+      return
+    }
 
     const myFile = new File(
       recordedChunks,
@@ -76,7 +85,7 @@ export default function WebcamVideo() {
           headers: { "Content-Type": "multipart/form-data" },
         })
 
-        console.log(res);
+        setPredWord(res.data.predicted_class[0])
       } catch (err) {
         console.log(err);
         alert("Error: Predicting")
@@ -97,13 +106,11 @@ export default function WebcamVideo() {
 
             <div className="flex-center">
               <Webcam
-                  height={400}
-                  width={400}
                   audio={false}
                   mirrored={true}
                   ref={webcamRef}
                   videoConstraints={videoConstraints}
-                  className={`${capturing ? "purple-border" : ""}`}
+                  // className={`${capturing ? "purple-border" : ""}`}
                 />
             </div>
             
@@ -137,6 +144,12 @@ export default function WebcamVideo() {
                   >
                       Predict 
                   </div>
+            </div>
+
+            <div className="flex-center mt-4"> 
+                  {predWord && (
+                    <p>{predWord}</p>
+                  )}
             </div>
       
           </div>

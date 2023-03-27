@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useRef, useState } from "react";
-import { Container,Row } from "react-bootstrap";
+import { Col, Container,Row } from "react-bootstrap";
 import Webcam from "react-webcam";
 
 export default function WebcamVideo() {
@@ -10,6 +10,8 @@ export default function WebcamVideo() {
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [predWord, setPredWord] = useState("");
+
+  const words = ["book","drink","computer","before","chair","go","clothes","who","candy","cousin","deaf","fine","help","no","thin"]
 
 
   const videoConstraints = {
@@ -103,6 +105,16 @@ export default function WebcamVideo() {
       <Container className='mt-5'>
         <Row className="justify-content-md-center">
           <div className="Container">
+
+              <Row className="justify-content-md-center">
+                <Col sm={6}>
+                  <ul className="wordList flex-center">
+                    {words.map((word,idx)=>{
+                      return  <li key={idx}>{word}</li>
+                    })}
+                  </ul>
+                </Col>
+              </Row>
 
             <div className="flex-center">
               <Webcam

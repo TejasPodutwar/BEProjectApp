@@ -64,3 +64,14 @@
     background-color: #764abc;
     cursor: pointer;
 }
+
+.wordList{
+    list-style: none;
+}
+
+.wordList li{
+    padding: 4px 8px;
+    background-color: #764abc;
+    border-radius: 4px;
+    margin-left: 8px;
+}

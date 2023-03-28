@@ -4,10 +4,11 @@ import './styles/styles.css';
 import Navbar from './components/Navbar';
 import { useState } from 'react';
 import TextToVideo from './components/TextToVideo';
+import ASLToISL from './components/ASLToISL';
 
 
 function App() {
-  const [selectedSection, setSelectedSection] = useState(true);
+  const [selectedSection, setSelectedSection] = useState("VdoToASL");
 
   const changeSectionHandler = (val)=>{
     setSelectedSection(val);
@@ -22,8 +23,15 @@ function App() {
         changeSection={changeSectionHandler}
       />
 
-      {selectedSection && <WebcamvVideo />}
-      {!selectedSection && <TextToVideo />}
+      {
+        selectedSection === "VdoToASL"
+        ? <WebcamvVideo />
+        : selectedSection === "TextToVdo"
+        ? <TextToVideo />
+        : selectedSection === "ASLToISL"
+        ? <ASLToISL />
+        : <div>Hello</div>
+      }
       
     </div>
   );

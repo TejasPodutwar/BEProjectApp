@@ -8,7 +8,7 @@ import ASLToISL from './components/ASLToISL';
 
 
 function App() {
-  const [selectedSection, setSelectedSection] = useState("VdoToASL");
+  const [selectedSection, setSelectedSection] = useState("VdoToText");
 
   const changeSectionHandler = (val)=>{
     setSelectedSection(val);
@@ -23,15 +23,9 @@ function App() {
         changeSection={changeSectionHandler}
       />
 
-      {
-        selectedSection === "VdoToASL"
-        ? <WebcamvVideo />
-        : selectedSection === "TextToVdo"
-        ? <TextToVideo />
-        : selectedSection === "ASLToISL"
-        ? <ASLToISL />
-        : <div>Hello</div>
-      }
+      {selectedSection==="VdoToText" && <WebcamvVideo />}
+      {selectedSection==="GetVdoASL" && <TextToVideo />}
+      {selectedSection==="ASLToISL" && <ASLToISL />}
       
     </div>
   );

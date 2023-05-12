@@ -7,14 +7,14 @@ const Navbar = ({section,changeSection}) => {
   return (
     <div className='cus-navbar'>
         <div 
-            className={`n-btn ${section === "VdoToASL"  ? "active-tab" : ""}`}
-            onClick={() =>{changeSection("VdoToASL")}}
+            className={`n-btn ${section==="VdoToText"  ? "active-tab" : ""}`}
+            onClick={() =>{changeSection("VdoToText")}}
         >
             Video To Text
         </div>
         <div 
-            className={`n-btn ${section==="TextToVdo" ? "active-tab" : ""}`}
-            onClick={() => {changeSection("TextToVdo")}}
+            className={`n-btn ${section==="GetVdoASL"  ? "active-tab" : ""}`}
+            onClick={() => {changeSection("GetVdoASL")}}
         >
             Text To Video
         </div>

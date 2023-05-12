@@ -9,6 +9,7 @@ export default function ASLToISL() {
   
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
+//   const [predictedWord, setPredictedWord] = useState("");
   
   const [vdoSrc, setVdoSrc] = useState("");
 
@@ -78,10 +79,9 @@ export default function ASLToISL() {
 
     console.log(myFile);
 
-    let predWord = "";
     const sendRequest = async()=>{
       try {
-        const res = await axios({
+        let res = await axios({
           method: "post",
           url: "http://localhost:8000/uploadfile/",
           data: {
@@ -90,7 +90,26 @@ export default function ASLToISL() {
           headers: { "Content-Type": "multipart/form-data" },
         })
 
-        predWord=res.data.predicted_class[0]
+        const predWord=res.data.predicted_class[0]
+
+
+        if(predWord==="" && words.includes(predWord)){
+            alert("Can't find the word");
+            return;
+        }
+
+        const url = `http://localhost:8000/get-video-isl/${predWord}`;
+        res = await axios.get(url, {
+          responseType: 'arraybuffer',
+        });
+
+        console.log(url);
+
+        const vurl = window.URL.createObjectURL(new Blob([res.data],{
+          type: "video/mp4"
+        }));
+        setVdoSrc(vurl);
+
 
       } catch (err) {
         console.log(err);
@@ -98,33 +117,32 @@ export default function ASLToISL() {
       }
     }
 
-    const getVideo = async (word) =>{
-      try {
-        const url = `http://localhost:8000/get-video/${word}`;
-        const res = await axios.get(url, {
-          responseType: 'arraybuffer',
-        });
+    // const getVideo = async (word) =>{
+    //   try {
+    //     const url = `http://localhost:8000/get-video-isl/${word}`;
+    //     const res = await axios.get(url, {
+    //       responseType: 'arraybuffer',
+    //     });
 
-        const vurl = window.URL.createObjectURL(new Blob([res.data],{
-          type: "video/mp4"
-        }));
-        setVdoSrc(vurl);
-      } catch (err) {
-        if(err.response.status===400){
-          alert('Invalid Word');
-          return;
-        }
-        alert("Error occurred fetching video");
-        console.log(err);
-      }
-    }
+    //     console.log(url);
+
+    //     const vurl = window.URL.createObjectURL(new Blob([res.data],{
+    //       type: "video/mp4"
+    //     }));
+    //     setVdoSrc(vurl);
+    //   } catch (err) {
+    //     if(err.response.status===400){
+    //       alert('Invalid Word');
+    //       return;
+    //     }
+    //     alert("Error occurred fetching video");
+    //     console.log(err);
+    //   }
+    // }
     
     sendRequest();
-    if(predWord==="" && words.includes(predWord)){
-      alert("Can't find the word");
-      return;
-    }
-    getVideo (predWord);
+    
+    // getVideo (predWord);
 
   }
 

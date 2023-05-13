@@ -29,7 +29,7 @@ def extract_keypoints(results):
     #return np.concatenate([pose, face, lh, rh])
     return np.concatenate([pose, lh, rh])
 
-def predict_class_for_video(video_location):
+def predict_ISL_class_for_video(video_location):
     sequence = []
     #sentence = []
     predictions = {}
